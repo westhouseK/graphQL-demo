@@ -1,5 +1,5 @@
 const { GraphQLScalarType } = require("graphql");
-const { authorizeWithGithub } = require("./../lib");
+const { authorizeWithGithub } = require("../../lib");
 const fetch = require("node-fetch");
 require("dotenv").config();
 
@@ -15,7 +15,7 @@ const resolvers = {
       return db.collection("photos").find().toArray();
     },
     totalUsers: (parent, args, { db }) => {
-      return db.collection("users").find().estimatedDocumentCount();
+      return db.collection("users").estimatedDocumentCount();
     },
     allUsers: (parent, args, { db }) => {
       return db.collection("users").find().toArray();

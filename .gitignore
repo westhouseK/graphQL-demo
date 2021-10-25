@@ -1,2 +1,4 @@
-node_modules/
-.env
+appllo-server/node_modules/
+appllo-server/.env
+
+photo-share-client/node_modules
