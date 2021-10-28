@@ -5,16 +5,32 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { ApolloProvider } from "react-apollo";
-import ApolloClient, { gql } from "apollo-boost";
+import ApolloClient, { gql, InMemoryCache } from "apollo-boost";
+import { persistCache } from "apollo-cache-persist";
 
-const client = new ApolloClient({ uri: "http://localhost:4000/graphql" , request: operation => {
-  operation.setContext(context => ({
-    headers: {
-      ...context.headers,
-      authorization: localStorage.getItem('token')
-    }
-  }))
-}});
+const cache = new InMemoryCache();
+persistCache({
+  cache,
+  storage: localStorage,
+});
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql",
+  cache,
+  request: (operation) => {
+    operation.setContext((context) => ({
+      headers: {
+        ...context.headers,
+        authorization: localStorage.getItem("token"),
+      },
+    }));
+  },
+});
+
+if(localStorage['apollo-cache-persist']) { 
+  let cacheData = JSON.parse(localStorage['apollo-cache-persist'])
+  cache.restore(cacheData)
+}
 
 // とりあえず試してみた
 const query = gql`

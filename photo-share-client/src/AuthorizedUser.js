@@ -25,7 +25,7 @@ const CurrentUser = ({ name, avatar, logout }) => (
 const Me = ({ logout, requestCode, signingIn }) => (
   <Query query={ROOT_QUERY} fetchPolicy="cache-only">
     {({ loading, data }) => {
-      console.log('a',data)
+      console.log('data.me',data)
       return data.me ? (
         <CurrentUser {...data.me} logout={logout} />
       ) : loading ? (
