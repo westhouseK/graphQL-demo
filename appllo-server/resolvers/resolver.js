@@ -1,5 +1,5 @@
 const { GraphQLScalarType } = require("graphql");
-const { authorizeWithGithub } = require("../../lib");
+const { authorizeWithGithub } = require("../lib");
 const fetch = require("node-fetch");
 require("dotenv").config();
 
